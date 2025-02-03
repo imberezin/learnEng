@@ -79,7 +79,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private var currentWord: WordPair!
     private let maxAttempts = 4
     private var attempts = 0
-    
+    private var totalQuestion = 10
     // Category BitMasks
     private let arrowCategory: UInt32 = 0x1 << 0
     private let balloonCategory: UInt32 = 0x1 << 1
@@ -95,8 +95,33 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         WordPair(english: "Red", hebrew: "אדום"),
         WordPair(english: "Left", hebrew: "שמאל"),
         WordPair(english: "Right", hebrew: "ימין"),
-        WordPair(english: "Game", hebrew: "משחק"),
+        WordPair(english: "Background", hebrew: "רקע"),
+        WordPair(english: "Question", hebrew: "שאלה"),
+        WordPair(english: "Select", hebrew: "בחירה"),
+        WordPair(english: "Gravity", hebrew: "כח כבידה"),
+        WordPair(english: "Title", hebrew: "כותרת"),
+        WordPair(english: "Forever", hebrew: "לתמיד"),
+        WordPair(english: "Duration", hebrew: "משך הזמן"),
+        WordPair(english: "To move", hebrew: "לזוז"),
+        WordPair(english: "Angle", hebrew: "זווית"),
+        WordPair(english: "Group", hebrew: "קבוצה"),
+        WordPair(english: "Touch", hebrew: "נגיעה"),
+        WordPair(english: "Menu", hebrew: "תפריט"),
+        WordPair(english: "Arrow", hebrew: "חץ"),
+        WordPair(english: "Rectangle", hebrew: "ריבוע"),
+        WordPair(english: "Pair", hebrew: "זוג"),
+        WordPair(english: "Word", hebrew: "מילה"),
+        WordPair(english: "Question", hebrew: "שאלה"),
+        WordPair(english: "Clear", hebrew: "נקי"),
+        WordPair(english: "Current", hebrew: "נוכחי"),
+        WordPair(english: "Counter", hebrew: "מונה"),
+        WordPair(english: "Attempt", hebrew: "לנסות")
+
+
+
     ]
+    // Question Clear Current Counter Attempt
+
     
     private var gameWords: [WordPair] = []
     
@@ -241,9 +266,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         gameWords = Array(wordDatabase.shuffled().prefix(10))
     }
     
+    
     private func startNewQuestion() {
         clearBalloons()
-        if questionCounter < 3 {
+        if questionCounter < totalQuestion {
             currentWord = gameWords[questionCounter]
             setupBalloons()
             currentWordLabel.text = "\(currentWord.english)"
